@@ -1,10 +1,11 @@
 cmake_minimum_required(VERSION 3.17)
 
 #set(CMAKE_BUILD_TYPE Release)
-set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_COLOR_MAKEFILE ON)
+set(spdlog_DIR spdlog/build)
 set(NAME gameEngine)
 
 project(${NAME}
@@ -20,6 +21,7 @@ include_directories(./include)
 include_directories(./include/utils)
 include_directories(./include/Core)
 
+
 include_directories(./include/Core/Components)
 include_directories(./include/Core/Components/Manager)
 include_directories(./include/Core/Components/Pool)
@@ -32,9 +34,11 @@ include_directories(./include/Core/Entity/Pool)
 include_directories(./include/Core/Systems)
 include_directories(./include/Core/Systems/Manager)
 
+include_directories(./include/Core/Scenes)
+include_directories(./include/Core/Scenes/Manager)
+
 include_directories(./src/Core/Allocators)
 include_directories(./loguru)
-
 #find_package(
 #        Boost 1.65 REQUIRED
 #        COMPONENTS test
@@ -49,10 +53,13 @@ set(SRCS
         src/Core/Entity/Manager/EntityManager.cpp
         src/Core/Components/Manager/ComponentManager.cpp
         src/Core/Systems/Manager/SystemManager.cpp
+        src/Core/Scenes/Manager/SceneManager.cpp
 )
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR})
-add_library(${NAME} SHARED ${SRCS})
+add_library(${NAME} SHARED
+        ${SRCS}
+)
 
 target_link_libraries(${NAME} ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(${NAME} dl)
@@ -61,6 +68,6 @@ target_include_directories(${NAME} PRIVATE .)
 if (MVSVC)
         target_compile_options(${NAME} PRIVATE /W4 /WX)
 else ()
-        target_compile_options(${NAME} PRIVATE -Wall -Wextra -std=c++11 -lpthread)
+        target_compile_options(${NAME} PRIVATE -Wall -Wextra -std=c++11 -lpthread -ldl)
         add_compile_options(-ldl)
 endif()

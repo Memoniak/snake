@@ -51,7 +51,12 @@ include_directories(${GAMEENGINE_DIR}/include/utils)
 
 include_directories(${GAMEENGINE_DIR}/include/Core/Systems)
 include_directories(${GAMEENGINE_DIR}/include/Core/Systems/Manager)
+
+include_directories(${GAMEENGINE_DIR}/include/Core/Scenes)
+include_directories(${GAMEENGINE_DIR}/include/Core/Scenes/Manager)
+
 include_directories(${GAMEENGINE_DIR}/loguru)
+
 target_link_libraries(${NAME} gameEngine)
 
 
