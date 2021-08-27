@@ -11,11 +11,13 @@ project(${NAME} VERSION 0.1 LANGUAGES CXX)
 ## INCLUDES
 include_directories(./include)
 include_directories(./include/Entities)
+include_directories(./include/Scenes)
 include_directories(./src)
 
 set(SRCS
         src/main.cpp
-        src/Entities/Snake.cpp)
+        src/Entities/Snake.cpp
+        src/Scenes/MainMenuScene.cpp)
 
 add_executable(${NAME} ${SRCS})
 

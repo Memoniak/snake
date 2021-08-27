@@ -22,11 +22,11 @@ class SceneManager {
         {
             SceneTypeID type = TypeIDCounter<AScene>::get<T>();
 
-            if (std::find(_sceneTypes.begin(), _sceneTypes.end(), type) != _sceneTypes.end()) {
+            if (std::find(_sceneTypes.begin(), _sceneTypes.end(), type) == _sceneTypes.end()) {
+                LOG_F(INFO, "Created scene with ID : %i || and || TYPE : %s", type, typeid(T).name());
                 AScene *s = new T(std::forward<Args>(args)...);
                 _scenes[type] = s;
                 _sceneTypes.push_back(type);
-                LOG_F(INFO, "Created scene with ID : %i || and || TYPE : %s", type, typeid(T).name());
                 return s;
             }
             //TODO throw exception trying to create same scene twice
