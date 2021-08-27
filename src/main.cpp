@@ -15,5 +15,6 @@ int main(void)
 
     EntityID snake = engine.getEntityManager()->createEntity<Snake>();
 
+    engine.update(1.0f);
     return 0;
 }

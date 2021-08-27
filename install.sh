@@ -4,9 +4,9 @@ cd ..
 while test $# -gt 0
 do
     case "$1" in
-        -d) valgrind ./build/snake
+        -d) valgrind ./snake
         ;;
-        -dl) valgrind --leak-check=full --show-leak-kinds=all ./build/snake
+        -dl) valgrind --leak-check=full --show-leak-kinds=all ./snake
         ;;
         *) ./build/snake
         ;;
