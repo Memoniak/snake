@@ -15,7 +15,7 @@
 class SceneManager {
     public:
         SceneManager(SystemManager &systemManager, EntityManager &entityManager);
-        ~SceneManager() = default;
+        ~SceneManager();
 
         template<class T, class... Args>
         AScene *createScene(Args&&... args) 
@@ -23,10 +23,10 @@ class SceneManager {
             SceneTypeID type = TypeIDCounter<AScene>::get<T>();
 
             if (std::find(_sceneTypes.begin(), _sceneTypes.end(), type) == _sceneTypes.end()) {
-                LOG_F(INFO, "Created scene with ID : %i || and || TYPE : %s", type, typeid(T).name());
                 AScene *s = new T(std::forward<Args>(args)...);
-                _scenes[type] = s;
+                LOG_F(INFO, "Created scene with ID : %i || and || TYPE : %s", type, typeid(T).name());
                 _sceneTypes.push_back(type);
+                _scenes.push_back(s);
                 return s;
             }
             //TODO throw exception trying to create same scene twice
@@ -43,6 +43,9 @@ class SceneManager {
                     _currentScene->end();
                 }
                 _currentScene = _scenes[type];
+                /*TODO Be careful here, when scenes are destroyed and eventually removed from the vector
+                the indexes will not be the same anymore
+                */
                 _currentScene->start();
             }
         }

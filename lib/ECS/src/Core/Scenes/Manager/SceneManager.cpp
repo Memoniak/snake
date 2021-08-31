@@ -10,11 +10,12 @@
 SceneManager::SceneManager(SystemManager &systemManager, EntityManager &entityManager) :
 _entityManager(entityManager), _systemManager(systemManager)
 {
+    LOG_F(INFO, "Initializing Scene Manager");
 }
 
-// SceneManager::~SceneManager()
-// {
-// }
+SceneManager::~SceneManager()
+{
+}
 
 void SceneManager::update(float dt)
 {
